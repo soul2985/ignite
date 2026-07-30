@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Answer Submitted | IGNITE</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', path='CSS/theme.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='CSS/components.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='CSS/submittedpage.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="page-container">
+
+        <!-- Header -->
+
+        <header class="top-bar">
+
+            <div class="brand">
+
+                <img src="{{ url_for('static', path='Images/ignite_brand_logo.png') }}" alt="IGNITE Logo"
+                    class="join-logo">
+
+                <h1>Submitted</h1>
+
+            </div>
+
+            <div class="profile-icon">
+
+                <span class="material-symbols-rounded">
+                    person
+                </span>
+
+            </div>
+
+        </header>
+
+        <!-- Success -->
+
+        <main class="submitted-wrapper">
+
+            <div class="success-circle">
+
+                <div class="success-icon">
+
+                    <span class="material-symbols-rounded">
+                        check
+                    </span>
+
+                </div>
+
+            </div>
+
+            <h2>Answer Submitted</h2>
+
+            <p class="subtitle">
+
+                {{ message if message else "Waiting for the host to lock this question." }}
+
+            </p>
+
+        </main>
+
+        <!-- Sync Card -->
+
+        <section class="status-card">
+
+            <div class="status-left">
+
+                <div class="pulse"></div>
+
+                <span>LIVE SYNCING</span>
+
+            </div>
+
+            <span class="status-text">
+
+                Waiting...
+
+            </span>
+
+        </section>
+
+        <!-- Fact Card -->
+
+        <section class="fact-card">
+
+            <div class="fact-icon">
+
+                <span class="material-symbols-rounded">
+
+                    lightbulb
+
+                </span>
+
+            </div>
+
+            <div>
+
+                <h3>Quick Fact</h3>
+
+                <p>
+
+                    Did you know? Faster correct answers are used to break ties on the leaderboard.
+
+                </p>
+
+            </div>
+
+        </section>
+
+    </div>
+
+    <script>
+
+        async function checkResults() {
+
+            try {
+
+                const response = await fetch("/quiz-status");
+
+                const data = await response.json();
+
+                if (data.show_results) {
+
+                    window.location.href = "/results";
+
+                }
+
+            }
+
+            catch (e) {
+
+                console.log(e);
+
+            }
+
+        }
+
+        setInterval(checkResults, 1000);
+
+        checkResults();
+
+    </script>
+
+</body>
+
+</html>

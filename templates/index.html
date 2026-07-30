@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block title %}
+IGNITE | Real-Time Quiz Platform
+{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{{ url_for('static', path='CSS/landingpage.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="landing-page">
+
+    <!-- =========================
+            HERO SECTION
+    ========================== -->
+
+    <section class="hero">
+
+        <img src="{{ url_for('static', path='Images/ignite_brand_logo.png') }}" alt="IGNITE Logo" class="hero-logo">
+
+        <h1>
+            Real-Time Quiz Platform
+        </h1>
+
+        <p class="hero-subtitle">
+            Built for college events, technical festivals,
+            hackathons, workshops and interactive classroom sessions.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="/join" class="btn btn-primary">
+                Join Quiz →
+            </a>
+
+            <a href="/host" class="btn btn-secondary">
+                Host Dashboard
+            </a>
+
+        </div>
+
+    </section>
+
+    <!-- =========================
+            FEATURES
+    ========================== -->
+
+    <section class="features">
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                <span class="material-symbols-rounded">
+                    bolt
+                </span>
+            </div>
+
+            <h3>Real-Time</h3>
+
+            <p>
+                Questions, timers and responses update instantly for every participant.
+            </p>
+
+        </div>
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                <span class="material-symbols-rounded">
+                    leaderboard
+                </span>
+            </div>
+
+            <h3>Live Leaderboards</h3>
+
+            <p>
+                Rankings refresh automatically after every question.
+            </p>
+
+        </div>
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                <span class="material-symbols-rounded">
+                    smartphone
+                </span>
+            </div>
+
+            <h3>Mobile Friendly</h3>
+
+            <p>
+                Optimized for hundreds of participants on any device.
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- =========================
+            FOOTER
+    ========================== -->
+
+    <footer class="landing-footer">
+
+        <p>
+            Built for College Technical Festivals
+        </p>
+
+        <small>
+            IGNITE v1.0
+        </small>
+
+    </footer>
+
+</div>
+
+{% endblock %}

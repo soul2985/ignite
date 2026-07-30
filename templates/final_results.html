@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Final Results | IGNITE</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', path='CSS/theme.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='CSS/components.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='CSS/finalresultspage.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- ===========================
+            HEADER
+    ============================ -->
+
+        <header class="top-bar">
+
+            <div class="header-left">
+
+                <img src="{{ url_for('static', path='Images/ignite_brand_logo.png') }}" class="hero-logo"
+                    alt="IGNITE Logo">
+
+                <h1>Final Results</h1>
+
+            </div>
+
+            <div class="profile">
+
+                <span class="material-symbols-rounded">
+
+                    emoji_events
+
+                </span>
+
+            </div>
+
+        </header>
+
+        <!-- ===========================
+            HERO
+    ============================ -->
+
+        <section class="hero-section">
+
+            <div class="hero-icon">
+
+                <span class="material-symbols-rounded">
+
+                    military_tech
+
+                </span>
+
+            </div>
+
+            <h2>
+
+                Quiz Completed!
+
+            </h2>
+
+            <p>
+
+                Congratulations to everyone who participated.
+
+            </p>
+
+        </section>
+
+        <!-- ===========================
+            PODIUM
+    ============================ -->
+
+        {% if leaderboard|length >= 1 %}
+
+        <section class="podium">
+
+            {% if leaderboard|length >= 2 %}
+
+            <div class="podium-card second">
+
+                <div class="avatar silver">
+
+                    {{ leaderboard[1].student_name[:2]|upper }}
+
+                </div>
+
+                <div class="position">2</div>
+
+                <h3>
+
+                    {{ leaderboard[1].student_name }}
+
+                </h3>
+
+                <span>
+
+                    {{ leaderboard[1].score }} Points
+
+                </span>
+
+            </div>
+
+            {% endif %}
+
+            <div class="podium-card first">
+
+                <div class="crown">
+
+                    <span class="material-symbols-rounded">
+
+                        crown
+
+                    </span>
+
+                </div>
+
+                <div class="avatar gold">
+
+                    {{ leaderboard[0].student_name[:2]|upper }}
+
+                </div>
+
+                <div class="position">1</div>
+
+                <h3>
+
+                    {{ leaderboard[0].student_name }}
+
+                </h3>
+
+                <span>
+
+                    {{ leaderboard[0].score }} Points
+
+                </span>
+
+            </div>
+
+            {% if leaderboard|length >= 3 %}
+
+            <div class="podium-card third">
+
+                <div class="avatar bronze">
+
+                    {{ leaderboard[2].student_name[:2]|upper }}
+
+                </div>
+
+                <div class="position">3</div>
+
+                <h3>
+
+                    {{ leaderboard[2].student_name }}
+
+                </h3>
+
+                <span>
+
+                    {{ leaderboard[2].score }} Points
+
+                </span>
+
+            </div>
+
+            {% endif %}
+
+        </section>
+
+        {% endif %}
+
+        <!-- ===========================
+            LEADERBOARD
+    ============================ -->
+
+        <section class="leaderboard-card">
+
+            <div class="leaderboard-header">
+
+                <h3>
+
+                    Final Leaderboard
+
+                </h3>
+
+                <span>
+
+                    {{ leaderboard|length }} Participants
+
+                </span>
+
+            </div>
+
+            <div class="leaderboard">
+
+                {% for player in leaderboard %}
+
+                <div class="player-row">
+
+                    <div class="rank">
+
+                        #{{ loop.index }}
+
+                    </div>
+
+                    <div class="avatar small">
+
+                        {{ player.student_name[:2]|upper }}
+
+                    </div>
+
+                    <div class="player-info">
+
+                        <h4>
+
+                            {{ player.student_name }}
+
+                        </h4>
+
+                        <span>
+
+                            {{ player.score }} Points
+
+                        </span>
+
+                    </div>
+
+                    {% if loop.index == 1 %}
+
+                    <div class="winner-badge">
+
+                        WINNER
+
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+        <!-- ===========================
+            FOOTER
+    ============================ -->
+
+        <section class="footer-card">
+
+            <span class="material-symbols-rounded">
+
+                celebration
+
+            </span>
+
+            <div>
+
+                <h4>
+
+                    Thank You!
+
+                </h4>
+
+                <p>
+
+                    We hope you enjoyed participating in IGNITE.
+
+                </p>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>IGNITE Host Control Center</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', path='CSS/theme.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='CSS/components.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='CSS/hostpage.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- Header -->
+
+        <header class="top-bar">
+
+            <div class="header-left">
+
+                <img src="{{ url_for('static', path='Images/ignite_brand_logo.png') }}" class="hero-logo"
+                    alt="IGNITE Logo">
+
+                <div>
+
+                    <h1>Host Control</h1>
+                    <p>IGNITE Dashboard</p>
+
+                </div>
+
+            </div>
+
+            <div class="profile">
+
+                <span class="material-symbols-rounded">
+                    admin_panel_settings
+                </span>
+
+            </div>
+
+        </header>
+
+        <!-- Stats -->
+
+        <section class="stats-grid">
+
+            <div class="stat-card">
+
+                <span class="material-symbols-rounded icon">
+                    groups
+                </span>
+
+                <h2>{{ participants|length }}</h2>
+
+                <p>Participants</p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <span class="material-symbols-rounded icon">
+                    quiz
+                </span>
+
+                <h2>
+
+                    {{ quiz_state["current_question"] + 1 }}/{{ questions|length }}
+
+                </h2>
+
+                <p>Question</p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <span class="material-symbols-rounded icon">
+                    bolt
+                </span>
+
+                <h2>
+
+                    {% if quiz_state["started"] %}
+                    LIVE
+                    {% else %}
+                    READY
+                    {% endif %}
+
+                </h2>
+
+                <p>Status</p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <span class="material-symbols-rounded icon">
+                    timer
+                </span>
+
+                <h2 id="timer">
+                    --
+                </h2>
+
+                <p>Timer</p>
+
+            </div>
+
+        </section>
+
+        <!-- Current Question -->
+
+        <section class="question-card">
+
+            <div class="section-title">
+
+                <span class="material-symbols-rounded">
+                    help
+                </span>
+
+                <h3>Current Question</h3>
+
+            </div>
+
+            <p class="question-text">
+
+                {{ questions[quiz_state["current_question"]]["question"] }}
+
+            </p>
+
+        </section>
+
+        <!-- Status -->
+
+        <section class="status-card">
+
+            <div>
+
+                <h3>Status</h3>
+
+                <span>
+
+                    {% if quiz_state["question_locked"] %}
+                    Locked
+                    {% else %}
+                    Accepting Answers
+                    {% endif %}
+
+                </span>
+
+            </div>
+
+            <div>
+
+                <h3>
+
+                    {{ answered_count }}/{{ participants|length }}
+
+                </h3>
+
+                <span>Answered</span>
+
+            </div>
+
+        </section>
+
+        <!-- Controls -->
+
+        <section class="controls">
+
+            {% if not quiz_state["started"] %}
+
+            <form action="/start" method="post">
+
+                <button class="control-btn start">
+
+                    <span class="material-symbols-rounded">
+                        play_arrow
+                    </span>
+
+                    Start Quiz
+
+                </button>
+
+            </form>
+
+            {% endif %}
+
+            {% if quiz_state["started"] and not quiz_state["question_locked"] %}
+
+            <form action="/lock-question" method="post">
+
+                <button class="control-btn lock">
+
+                    <span class="material-symbols-rounded">
+                        lock
+                    </span>
+
+                    Lock Question
+
+                </button>
+
+            </form>
+
+            {% endif %}
+
+            {% if quiz_state["question_locked"] and quiz_state["current_question"] < (questions|length - 1) %} <form
+                action="/next-question" method="post">
+
+                <button class="control-btn next">
+
+                    <span class="material-symbols-rounded">
+                        arrow_forward
+                    </span>
+
+                    Next Question
+
+                </button>
+
+                </form>
+
+                {% endif %}
+
+                {% if quiz_state["started"] %}
+
+                <form action="/end-quiz" method="get">
+
+                    <button class="control-btn end">
+
+                        <span class="material-symbols-rounded">
+                            emoji_events
+                        </span>
+
+                        End Quiz
+
+                    </button>
+
+                </form>
+
+                {% endif %}
+
+                <form action="/clear-quiz" method="post">
+
+                    <button class="control-btn clear">
+
+                        <span class="material-symbols-rounded">
+                            delete
+                        </span>
+
+                        Clear Quiz
+
+                    </button>
+
+                </form>
+
+        </section>
+
+        <!-- Leaderboard -->
+
+        <section class="leaderboard-card">
+
+            <div class="section-title">
+
+                <span class="material-symbols-rounded">
+                    leaderboard
+                </span>
+
+                <h3>Live Leaderboard</h3>
+
+            </div>
+
+            <div class="leaderboard">
+
+                {% for player in leaderboard[:5] %}
+
+                <div class="player-row">
+
+                    <div class="rank">
+
+                        #{{ loop.index }}
+
+                    </div>
+
+                    <div class="player-info">
+
+                        <strong>
+
+                            {{ player.student_name }}
+
+                        </strong>
+
+                        <span>
+
+                            {{ player.score }} pts
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+    </div>
+
+    <script>
+
+        const startTime = {{ question_start_time }};
+
+        function updateTimer() {
+
+            const timer = document.getElementById("timer");
+
+            if (!startTime) {
+
+                timer.textContent = "--";
+
+                return;
+
+            }
+
+            function tick() {
+
+                const elapsed = Math.floor(Date.now() / 1000 - startTime);
+
+                timer.textContent = elapsed + "s";
+
+            }
+
+            tick();
+
+            setInterval(tick, 1000);
+
+        }
+
+        updateTimer();
+
+        setInterval(function () {
+
+            window.location.reload();
+
+        }, 3000);
+
+    </script>
+
+</body>
+
+</html>

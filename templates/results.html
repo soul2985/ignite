@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Results | IGNITE</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', path='CSS/theme.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='CSS/components.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='CSS/resultspage.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- =========================
+            HEADER
+    ========================== -->
+
+        <header class="top-bar">
+
+            <div class="header-left">
+
+                <img src="{{ url_for('static', path='Images/ignite_brand_logo.png') }}" alt="IGNITE Logo"
+                    class="hero-logo">
+
+                <h1>Results</h1>
+
+            </div>
+
+            <div class="profile">
+
+                <span class="material-symbols-rounded">
+                    person
+                </span>
+
+            </div>
+
+        </header>
+
+        <!-- =========================
+            HERO
+    ========================== -->
+
+        <section class="results-banner">
+
+            <div class="success-icon">
+
+                <span class="material-symbols-rounded">
+                    emoji_events
+                </span>
+
+            </div>
+
+            <h2>
+
+                Question Complete!
+
+            </h2>
+
+            <p>
+
+                Here are the live standings after this round.
+
+            </p>
+
+        </section>
+
+        <!-- =========================
+            LEADERBOARD
+    ========================== -->
+
+        <section class="leaderboard-card">
+
+            <div class="leaderboard-header">
+
+                <div>
+
+                    <h3>
+
+                        Live Standings
+
+                    </h3>
+
+                    <p>
+
+                        {{ leaderboard|length }} Participants
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="leaderboard">
+
+                {% for player in leaderboard %}
+
+                <div class="player-row">
+
+                    <div class="rank">
+
+                        #{{ loop.index }}
+
+                    </div>
+
+                    <div class="avatar">
+
+                        {{ player.student_name[:2]|upper }}
+
+                    </div>
+
+                    <div class="player-info">
+
+                        <h4>
+
+                            {{ player.student_name }}
+
+                        </h4>
+
+                        <span>
+
+                            {{ player.score }} Points
+
+                        </span>
+
+                    </div>
+
+                    {% if player.student_name == student_name %}
+
+                    <div class="you">
+
+                        YOU
+
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+        <!-- =========================
+            WAITING CARD
+    ========================== -->
+
+        <section class="waiting-card">
+
+            <div class="pulse"></div>
+
+            <div>
+
+                <h4>
+
+                    Waiting for Host
+
+                </h4>
+
+                <p>
+
+                    The next question will begin shortly.
+
+                </p>
+
+            </div>
+
+        </section>
+
+    </div>
+
+    <script>
+
+        async function pollQuiz() {
+
+            try {
+
+                const response = await fetch("/quiz-status");
+
+                const data = await response.json();
+
+                if (!data.show_results && data.started) {
+
+                    window.location.href = "/question";
+
+                }
+
+                if (data.ended) {
+
+                    window.location.href = "/end-quiz";
+
+                }
+
+            }
+
+            catch (error) {
+
+                console.log(error);
+
+            }
+
+        }
+
+        setInterval(pollQuiz, 1000);
+
+        pollQuiz();
+
+    </script>
+
+</body>
+
+</html>

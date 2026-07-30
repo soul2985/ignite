@@ -1,0 +1,177 @@
+/* =========================================================
+   LANDING PAGE
+========================================================= */
+
+.landing-page {
+    width: min(1200px, 92%);
+    margin: 0 auto;
+    padding: 80px 0;
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-bottom: 90px;
+}
+
+.hero-logo {
+    width: 130px;
+    height: auto;
+    display: block;
+    margin-bottom: 32px;
+}
+
+.hero h1 {
+    font-size: clamp(42px, 6vw, 64px);
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--text-primary);
+    margin-bottom: 22px;
+    max-width: 900px;
+}
+
+.hero-subtitle {
+    max-width: 720px;
+    font-size: 20px;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    margin-bottom: 40px;
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+/* =========================================================
+   FEATURES
+========================================================= */
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.feature-card {
+    background: rgba(30, 41, 59, .92);
+    border: 1px solid rgba(255, 255, 255, .08);
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+    backdrop-filter: blur(14px);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 280px;
+
+    transition: all .3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(239, 68, 68, .25);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, .35);
+}
+
+.feature-icon {
+    margin-bottom: 24px;
+}
+
+.feature-icon .material-symbols-rounded {
+    font-size: 48px;
+    color: var(--primary);
+}
+
+.feature-card h3 {
+    color: var(--text-primary);
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.feature-card p {
+    color: var(--text-secondary);
+    font-size: 17px;
+    line-height: 1.7;
+    max-width: 260px;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.landing-footer {
+    margin-top: 80px;
+    padding-top: 30px;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, .08);
+}
+
+.landing-footer p {
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.landing-footer small {
+    color: #94A3B8;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .landing-page {
+        width: 92%;
+        padding: 60px 0;
+    }
+
+    .hero {
+        padding-bottom: 70px;
+    }
+
+    .hero-logo {
+        width: 110px;
+    }
+
+    .hero h1 {
+        font-size: 38px;
+    }
+
+    .hero-subtitle {
+        font-size: 17px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .hero-buttons .btn {
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .features {
+        grid-template-columns: 1fr;
+    }
+
+    .feature-card {
+        min-height: 240px;
+    }
+}

@@ -1,0 +1,357 @@
+/* =====================================================
+   RESULTS PAGE
+===================================================== */
+
+body {
+    margin: 0;
+    padding: 0;
+    background: var(--background);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    min-height: 100vh;
+    padding: 28px 24px 40px;
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.header-left img {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+}
+
+.header-left h1 {
+    margin: 0;
+    font-size: 2.2rem;
+    font-weight: 700;
+}
+
+.profile {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile span {
+    font-size: 30px;
+}
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.results-banner {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.success-icon {
+    width: 95px;
+    height: 95px;
+    border-radius: 50%;
+    background: rgba(239, 68, 68, .12);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin: auto;
+    margin-bottom: 24px;
+}
+
+.success-icon span {
+    font-size: 58px;
+    color: #FFD54A;
+}
+
+.results-banner h2 {
+    margin: 0;
+    font-size: 2.3rem;
+    font-weight: 700;
+}
+
+.results-banner p {
+    margin-top: 12px;
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+}
+
+/* =====================================================
+   HEADING
+===================================================== */
+
+.heading {
+    margin-bottom: 18px;
+    font-size: 1.45rem;
+}
+
+/* =====================================================
+   LEADERBOARD
+===================================================== */
+
+.leaderboard {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.player-row {
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+
+    border-radius: 18px;
+
+    padding: 18px 22px;
+
+    display: flex;
+    align-items: center;
+
+    transition: .25s;
+}
+
+.player-row:hover {
+
+    transform: translateY(-2px);
+
+    border-color: var(--primary);
+
+}
+
+.rank {
+
+    width: 45px;
+
+    text-align: center;
+
+    font-size: 1.4rem;
+
+    font-weight: 700;
+}
+
+.avatar {
+
+    width: 58px;
+    height: 58px;
+
+    border-radius: 50%;
+
+    background: var(--primary);
+
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 1.3rem;
+    font-weight: 700;
+
+    margin-right: 18px;
+}
+
+.player-info {
+
+    flex: 1;
+}
+
+.player-info h4 {
+
+    margin: 0;
+
+    font-size: 1.1rem;
+}
+
+.player-info span {
+
+    color: var(--text-secondary);
+
+    margin-top: 4px;
+
+    display: block;
+}
+
+.you {
+
+    background: rgba(239, 68, 68, .15);
+
+    color: var(--primary);
+
+    padding: 8px 16px;
+
+    border-radius: 999px;
+
+    font-size: .9rem;
+
+    font-weight: 700;
+}
+
+/* =====================================================
+   WAITING CARD
+===================================================== */
+
+.waiting-card {
+
+    margin-top: 34px;
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+
+    border-radius: 18px;
+
+    padding: 20px 24px;
+
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.waiting-card span {
+
+    color: var(--text-secondary);
+
+    font-size: 1rem;
+}
+
+.pulse {
+
+    width: 12px;
+    height: 12px;
+
+    border-radius: 50%;
+
+    background: #22c55e;
+
+    animation: pulse 1.4s infinite;
+}
+
+@keyframes pulse {
+
+    0% {
+
+        opacity: .3;
+        transform: scale(.8);
+
+    }
+
+    50% {
+
+        opacity: 1;
+        transform: scale(1.2);
+
+    }
+
+    100% {
+
+        opacity: .3;
+        transform: scale(.8);
+
+    }
+
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:768px) {
+
+    .container {
+
+        padding: 22px 16px;
+
+    }
+
+    .top-bar {
+
+        margin-bottom: 35px;
+
+    }
+
+    .header-left h1 {
+
+        font-size: 1.8rem;
+
+    }
+
+    .results-banner h2 {
+
+        font-size: 1.8rem;
+
+    }
+
+    .success-icon {
+
+        width: 80px;
+        height: 80px;
+
+    }
+
+    .success-icon span {
+
+        font-size: 48px;
+
+    }
+
+    .player-row {
+
+        padding: 16px;
+
+    }
+
+    .rank {
+
+        width: 34px;
+
+        font-size: 1.1rem;
+
+    }
+
+    .avatar {
+
+        width: 48px;
+        height: 48px;
+
+        font-size: 1rem;
+
+        margin-right: 14px;
+
+    }
+
+    .you {
+
+        padding: 6px 12px;
+
+        font-size: .8rem;
+
+    }
+
+}

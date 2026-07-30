@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}
+IGNITE | Join Quiz
+{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{{ url_for('static', path='CSS/joinpage.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="join-page">
+
+    <div class="join-card">
+
+        <!-- =========================
+                LOGO
+        ========================== -->
+
+        <div class="logo-container">
+
+            <img src="{{ url_for('static', path='Images/ignite_brand_logo.png') }}" alt="IGNITE Logo" class="join-logo">
+
+        </div>
+
+        <!-- =========================
+                HEADING
+        ========================== -->
+
+        <h1 class="join-title">
+            Join the Quiz
+        </h1>
+
+        <p class="join-subtitle">
+            Enter your name below to join the live quiz.
+            You'll automatically enter the waiting lobby once you've joined.
+        </p>
+
+        <!-- =========================
+                FORM
+        ========================== -->
+
+        <form action="/join" method="post" class="join-form">
+
+            <label for="student_name">
+                Full Name
+            </label>
+
+            <input type="text" id="student_name" name="student_name" placeholder="Enter your full name"
+                autocomplete="off" required>
+
+            <button type="submit">
+                Join Quiz
+            </button>
+
+        </form>
+
+        <!-- =========================
+                FOOTER
+        ========================== -->
+
+        <p class="join-footer">
+            Waiting for the host to begin the event.
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+
+{% block title %}
+IGNITE | Waiting Lobby
+{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{{ url_for('static', path='CSS/waitingpage.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="waiting-page">
+
+    <!-- =========================
+            HEADER
+    ========================== -->
+
+    <header class="waiting-header">
+
+        <div class="header-left">
+
+            <img src="{{ url_for('static', path='Images/ignite_brand_logo.png') }}" alt="IGNITE Logo"
+                class="header-logo">
+
+            <h2>Lobby</h2>
+
+        </div>
+
+        <div class="profile-avatar">
+
+            {{ student_name[0]|upper }}
+
+        </div>
+
+    </header>
+
+    <!-- =========================
+            MAIN CONTENT
+    ========================== -->
+
+    <main class="waiting-content">
+
+        <div class="pulse-wrapper">
+
+            <div class="pulse-ring ring-one"></div>
+
+            <div class="pulse-ring ring-two"></div>
+
+            <div class="pulse-center">
+
+                <span class="material-symbols-rounded">
+                    wifi
+                </span>
+
+            </div>
+
+        </div>
+
+        <h1 class="participant-name">
+
+            {{ student_name }}
+
+        </h1>
+
+        <p class="waiting-status">
+
+            <span class="status-dot"></span>
+
+            Waiting for the host to begin the quiz...
+
+        </p>
+
+    </main>
+
+    <!-- =========================
+            INFO
+    ========================== -->
+
+    <section class="info-banner">
+
+        THE QUIZ WILL BEGIN AUTOMATICALLY
+
+    </section>
+
+    <section class="status-grid">
+
+        <div class="status-card">
+
+            <span class="card-title">
+
+                Status
+
+            </span>
+
+            <strong id="connection-status">
+
+                Ready
+
+            </strong>
+
+        </div>
+
+        <div class="status-card">
+
+            <span class="card-title">
+
+                Participants
+
+            </span>
+
+            <strong>
+
+                Connected
+
+            </strong>
+
+        </div>
+
+    </section>
+
+</div>
+
+<!-- =========================
+        AUTO QUIZ START
+========================== -->
+
+<script>
+
+    async function checkQuizStatus() {
+
+        try {
+
+            const response = await fetch("/quiz-status");
+
+            const data = await response.json();
+
+            if (data.started) {
+
+                window.location.href = "/question";
+
+            }
+
+        } catch (error) {
+
+            console.log("Unable to check quiz status.");
+
+        }
+
+    }
+
+    // Check every second
+    setInterval(checkQuizStatus, 1000);
+
+    // Also check immediately when page loads
+    checkQuizStatus();
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,199 @@
+/* Cards */
+
+.join-card {
+
+    background: rgba(30, 41, 59, .92);
+
+    border: 1px solid rgba(255, 255, 255, .08);
+
+    backdrop-filter: blur(18px);
+
+    border-radius: 22px;
+
+    padding: 48px;
+
+    width: 100%;
+    max-width: 500px;
+
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, .45);
+
+    transition: .3s ease;
+}
+
+.join-card:hover {
+
+    transform: translateY(-4px);
+
+}
+
+
+/* Inputs */
+
+input {
+
+    width: 100%;
+
+    height: 54px;
+
+    padding: 0 18px;
+
+    margin-top: 10px;
+
+    margin-bottom: 28px;
+
+    background: #2B364A;
+
+    border: 1px solid transparent;
+
+    border-radius: 14px;
+
+    color: white;
+
+    font-size: 16px;
+
+    transition: .25s ease;
+
+}
+
+input:focus {
+
+    outline: none;
+
+    border-color: #EF4444;
+
+    box-shadow:
+        0 0 0 4px rgba(239, 68, 68, .12);
+
+}
+
+/* Button */
+
+button {
+
+    width: 100%;
+
+    height: 56px;
+
+    border: none;
+
+    border-radius: 14px;
+
+    background: #EF4444;
+
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: .25s ease;
+
+    box-shadow:
+        0 15px 35px rgba(239, 68, 68, .28);
+
+}
+
+button:hover {
+
+    transform: translateY(-2px);
+
+    background: #DC2626;
+
+    box-shadow:
+        0 20px 40px rgba(239, 68, 68, .38);
+
+}
+
+button:active {
+
+    transform: translateY(0);
+
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.ignite-logo {
+
+    width: 150px;
+
+    height: auto;
+
+}
+
+/* ==========================================
+   BUTTONS
+========================================== */
+
+.btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-decoration: none;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    border-radius: 14px;
+
+    height: 56px;
+
+    padding: 0 28px;
+
+    transition: .25s ease;
+
+    cursor: pointer;
+
+}
+
+.btn-primary {
+
+    background: #EF4444;
+
+    color: white;
+
+    box-shadow:
+        0 15px 35px rgba(239, 68, 68, .28);
+
+}
+
+.btn-primary:hover {
+
+    transform: translateY(-2px);
+
+    background: #DC2626;
+
+    box-shadow:
+        0 20px 40px rgba(239, 68, 68, .40);
+
+}
+
+.btn-secondary {
+
+    background: transparent;
+
+    color: white;
+
+    border: 1px solid rgba(255, 255, 255, .15);
+
+}
+
+.btn-secondary:hover {
+
+    background: rgba(255, 255, 255, .05);
+
+    transform: translateY(-2px);
+
+}

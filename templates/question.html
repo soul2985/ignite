@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}
+IGNITE | Question
+{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{{ url_for('static', path='CSS/questionpage.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="question-page">
+
+    <header class="question-header">
+
+        <div>
+            <h2>Question</h2>
+
+            <p class="progress">
+                Question {{ question_number }} of {{ total_questions }}
+            </p>
+        </div>
+
+        <div class="timer">
+
+            <span class="material-symbols-rounded">
+                timer
+            </span>
+
+            <span id="timer">
+                {{ time_left }}
+            </span>
+
+        </div>
+
+    </header>
+
+    <div class="category">
+
+        {{ category }}
+
+    </div>
+
+    <section class="question-card">
+
+        <h3>
+
+            {{ question_text }}
+
+        </h3>
+
+    </section>
+
+    <form action="/submit-answer" method="post" class="options-form">
+
+        {% for option in options %}
+
+        <label class="option-card">
+
+            <input type="radio" name="answer" value="{{ option }}" required>
+
+            <span class="option-letter">
+                {{ "ABCD"[loop.index0] }}
+            </span>
+
+            <span class="option-text">
+                {{ option }}
+            </span>
+
+        </label>
+
+        {% endfor %}
+
+        <button type="submit" class="submit-btn">
+            Confirm Choice
+            <span class="material-symbols-rounded">
+                arrow_forward
+            </span>
+        </button>
+
+    </form>
+
+    <p class="hint">
+
+        Double tap to instantly submit
+
+    </p>
+
+</div>
+
+{% endblock %}

@@ -3,7 +3,7 @@ import csv
 import random
 import html
 
-url = https://opentdb.com/api.php?amount=50&category=18&difficulty=medium&type=multiple
+url = "https://opentdb.com/api.php?amount=50&category=9&difficulty=medium&type=multiple"
 response = requests.get(url)
 data = response.json()
 

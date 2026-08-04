@@ -157,4 +157,25 @@ IGNITE | Waiting Lobby
 
 </script>
 
+<script>
+    const socket = new WebSocket("wss://ignite-wgiw.onrender.com/ws");
+
+    socket.onopen = () => {
+        console.log("✅ WebSocket Connected");
+        socket.send("hello");
+    };
+
+    socket.onmessage = (event) => {
+        console.log("Received:", event.data);
+    };
+
+    socket.onclose = () => {
+        console.log("❌ WebSocket Closed");
+    };
+
+    socket.onerror = (error) => {
+        console.log(error);
+    };
+</script>
+
 {% endblock %}

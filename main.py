@@ -8,6 +8,8 @@ import json
 import time
 from fastapi.staticfiles import StaticFiles
 import csv
+from fastapi import WebSocket, WebSocketDisconnect
+from websocket_manager import manager
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -20,8 +22,6 @@ app.add_middleware(
 BASE_DIR = Path(__file__).parent
 
 # Load Questions
-
-
 
 def load_questions(filename):
 
@@ -120,21 +120,27 @@ async def waiting(request: Request):
 
     student_name = request.session.get("student_name")
 
-    if participants[student_name]["answered"]:
-        return templates.TemplateResponse(
-        request=request,
-        name="submitted.html",
-        context={
-            "request": request,
-            "student_name": student_name,
-            "message": "❌ You have already submitted your answer."
-        }
-    )
-
     if not student_name:
         return templates.TemplateResponse(
             request=request,
             name="join.html"
+        )
+
+    if student_name not in participants:
+        return templates.TemplateResponse(
+            request=request,
+            name="join.html"
+        )
+
+    if participants[student_name]["answered"]:
+        return templates.TemplateResponse(
+            request=request,
+            name="submitted.html",
+            context={
+                "request": request,
+                "student_name": student_name,
+                "message": "❌ You have already submitted your answer."
+            }
         )
 
     return templates.TemplateResponse(
@@ -144,8 +150,7 @@ async def waiting(request: Request):
             "request": request,
             "student_name": student_name
         }
-    ) 
-
+    )
 # Host Dashboard
 
 @app.get("/host")
@@ -487,3 +492,15 @@ async def clear_quiz():
         url="/host",
         status_code=303
     )
+# websocket 
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    await manager.connect(websocket)
+
+    try:
+        while True:
+            # Keep the connection alive by waiting for client messages
+            await websocket.receive_text()
+
+    except WebSocketDisconnect:
+        manager.disconnect(websocket)    

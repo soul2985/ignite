@@ -192,8 +192,10 @@ async def host(request: Request):
 
 # Start quiz
 
+# Start quiz
 @app.post("/start")
 async def start_quiz():
+    print("===== NEW START_QUIZ CODE RUNNING =====")
 
     # Start new quiz
     quiz_state["started"] = True
@@ -210,6 +212,20 @@ async def start_quiz():
     quiz_state["question_start_time"] = time.time()
 
     print("Question started at:", quiz_state["question_start_time"])
+
+    # ==============================
+    # Broadcast to all students
+    # ==============================
+    print("Broadcasting...")
+
+    print("Connected clients:", len(manager.active_connections))
+
+    await manager.broadcast_json({
+    "type": "quiz_started",
+    "current_question": quiz_state["current_question"]
+})
+
+    print("Broadcast finished")
 
     return RedirectResponse(
         url="/host",
@@ -492,15 +508,20 @@ async def clear_quiz():
         url="/host",
         status_code=303
     )
-# websocket 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
+
+    print("NEW CLIENT")
+
     await manager.connect(websocket)
+
+    print("Total:", len(manager.active_connections))
 
     try:
         while True:
-            # Keep the connection alive by waiting for client messages
-            await websocket.receive_text()
+            msg = await websocket.receive_text()
+            print("Received:", msg)
 
     except WebSocketDisconnect:
-        manager.disconnect(websocket)    
+        print("Disconnected")
+        manager.disconnect(websocket) 
